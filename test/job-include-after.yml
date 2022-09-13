@@ -1,0 +1,7 @@
+- job:
+    name: "after test, kill iperf server"
+    host: ALL_NODES
+    tasks:
+      - name: 'stop iperf3 server'
+        type: command
+        cmd: ${SETUP_TOOLS_DIR}/init/init-stop-iperf-server.sh ${CHECK_PERF_PARAM_PORT}

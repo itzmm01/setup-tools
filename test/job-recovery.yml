@@ -1,0 +1,41 @@
+-
+ job:
+  id: "" # 可不填，当为空或不填时，默认为随机生成ID
+  name: "1. pre init check on Hardware and Software"
+  host: meeting-hosts
+  tasks:
+    -
+      name: "1.1. check comamd ${CHECK_CMD}"
+      type: command
+      cmd: ${SETUP_TOOLS_DIR}/check/check-basic-command.sh ${CHECK_CMD}
+      allow_failed: true
+    -
+      name: "1.2. check firewalld off"
+      type: command
+      cmd: ${SETUP_TOOLS_DIR}/check/check-firewalld-off.sh
+      allow_failed: true
+    -
+      name: "1.3. check selinux off"
+      type: command
+      cmd: ${SETUP_TOOLS_DIR}/check/check-selinux-off.sh
+      allow_failed: true
+  param:
+     allow_failed: true
+-
+ job:
+  name: "2. test job recovery"
+  host: meeting-hosts
+  tasks:
+    -
+      name: "1.1. check comamd ${CHECK_CMD}"
+      type: command
+      cmd: ${SETUP_TOOLS_DIR}/check/check-basic-command.sh ${CHECK_CMD}
+      allow_failed: true
+    -
+      name: "1.4 check capacity"
+      type: command
+      with_items: DISK_PARAM
+      cmd: ${SETUP_TOOLS_DIR}/check/check-disk-capacity.sh ${DISK_PARAM.PATH}  ${DISK_PARAM.CAPACITY}
+  param:
+     allow_failed: true
+

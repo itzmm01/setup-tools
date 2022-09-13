@@ -1,0 +1,62 @@
+#!/bin/bash
+workdir=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
+
+function usage() {
+    echo ""
+    echo "Usage: cli COMMAND or cli OPTION"
+    echo ""
+    echo "Options:"
+    echo "    -v, --version Show version and exit"
+    echo "    -h, --help    Show this message and quit"
+    echo ""
+    echo "Commands:"
+    echo "    cmd          Batch execute the specified commands"
+    echo "    cron         Batch set the crontab tasks"
+    echo "    encrypt      Encrypt the password in host.yaml"
+    echo "    logcollect   Batch collect logs"
+    echo "    scheduler    Execute a scheduler job"
+    echo "    scripts      Batch execute the specified script files"
+    echo "    sendfile     Batch distribution of files"
+    echo "    queryhost    Query the hosts in the specified hostgroup"
+    echo ""
+    echo "Run 'cli COMMAND --help' for more information on a command."
+    echo ""
+}
+
+
+if [ $# -lt 1 ]; then
+    usage
+    exit 1
+fi
+subcommand=$1
+
+[[ $subcommand = help ]] && usage
+
+case $subcommand in
+    $1)
+        command=$1
+        shift
+        if [ "$command" == "--help" ] || [ "$command" == "-h" ]; then
+            usage
+            exit 1
+        fi
+        if [ "$command" == "--version" ] || [ "$command" == "-v" ]; then
+            if [ -f "$workdir"/version ]; then
+              cat "$workdir"/version
+            else
+              echo "Unknown"
+            fi
+            exit 1
+        fi
+        if [ ! -f $workdir/command/$command.sh ]; then
+            echo "The command [$command] is not supported."
+            usage
+            exit 1
+        fi
+        source $workdir/command/$command.sh
+        $command "$@"
+        ;;
+    *)
+        usage
+        ;;
+esac

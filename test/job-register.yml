@@ -1,0 +1,18 @@
+-
+ job:
+  name: "1. Set tsf web para"
+  host: meeting-hosts
+  tasks:
+    -
+      name: "1.1 Set tsf para "
+      type: command
+      cmd: echo "aaaa"
+      register: aabb
+      allow_failed: false
+    -
+      name: "1.2 Set tsf para "
+      type: command
+      cmd: echo ${${IP}@aabb}
+      allow_failed: false
+  param:
+     allow_failed: false

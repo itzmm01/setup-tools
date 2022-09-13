@@ -1,0 +1,73 @@
+[
+  {
+    "group": [
+      "ALL_NODES",
+      "meeting-hosts",
+      "chat-hosts"
+    ],
+    "name": "KKKK",
+    "ip": "172.16.16.7",
+    "user": "sam",
+    "password": 123456,
+    "port": 22
+  },
+  {
+    "group": [
+      "ALL_NODES",
+      "meeting-hosts"
+    ],
+    "name": "KKKK",
+    "ip": "172.16.16.6",
+    "user": "sam",
+    "password": 123456,
+    "port": 22
+  },
+  {
+    "group": [
+      "ALL_NODES",
+      "meeting-hosts",
+      "chat-hosts"
+    ],
+    "name": "MEETING",
+    "ip": "172.16.16.3",
+    "user": "xxx",
+    "password": 123456,
+    "port": "22"
+  },
+  {
+    "group": [
+      "ALL_NODES",
+      "meeting-hosts",
+      "chat-hosts"
+    ],
+    "name": "MEETING",
+    "ip": "172.16.16.4",
+    "user": "xxx",
+    "password": 123456,
+    "port": "22"
+  },
+  {
+    "group": [
+      "ALL_NODES",
+      "meeting-hosts",
+      "chat-hosts"
+    ],
+    "name": "MEETING",
+    "ip": "172.16.16.5",
+    "user": "xxx",
+    "password": 123456,
+    "port": "22"
+  },
+  {
+    "group": [
+      "ALL_NODES",
+      "meeting-hosts",
+      "chat-hosts"
+    ],
+    "name": "MEETING",
+    "ip": "172.16.16.8",
+    "user": "root",
+    "password": 123456,
+    "port": "22"
+  }
+]

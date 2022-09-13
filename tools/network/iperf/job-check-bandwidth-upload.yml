@@ -1,0 +1,15 @@
+- include:
+    - file: ${SETUP_TOOLS_DIR}/tools/network/iperf/job-run-perf-server.yml
+- job:
+    name: "check bandwidth of upload by iperf3"
+    host: ALL_NODES
+    node_parallel: true
+    tasks:
+      - name: 'run iperf client, check upload bandwidth'
+        type: command
+        with_items: CHECK_IP
+        item_condition: "'${IP}' != '${CHECK_IP.IP}'"
+        cmd: chmod +x ${SETUP_TOOLS_DIR}/common/jq/jq-linux64 && export PATH=$PATH:${SETUP_TOOLS_DIR}/common/jq && ${SETUP_TOOLS_DIR}/tools/network/iperf/check-network-by-iperf.sh ${CHECK_IP.IP} ${CHECK_PERF_PARAM_PORT} ${CHECK_UDP_PROTOCOL} ${CHECK_PERF_PARAM_INTERVAL_TIME} ${CHECK_UDP_BANDWIDTH} ${CHECK_UDP_BYTES_PER_PKG} ${CHECK_UDP_UP_BANDWIDTH} ${UPLOAD_BANDWIDTH_THRESHOLD} ${UPLOAD_THRESHOLD_OPERATOR} ${UPLOAD_BANDWIDTH_THRESHOLD_RATIO}
+        allow_failed: true
+- include:
+    - file: ${SETUP_TOOLS_DIR}/tools/network/iperf/job-kill-perf-server.yml

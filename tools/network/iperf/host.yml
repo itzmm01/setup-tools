@@ -1,0 +1,15 @@
+meeting-hosts:
+  - ip: 192.168.X.X
+    port: 22
+    user: root
+    password: 123456
+meeting-hosts-zk:
+  - ip: 192.168.X.X
+    port: 22
+    user: root
+    password: 123456
+meeting-hosts-hdfs:
+  - ip: 192.168.X.X
+    port: 22
+    user: root
+    password: 123456

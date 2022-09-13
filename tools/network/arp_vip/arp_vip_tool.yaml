@@ -1,0 +1,59 @@
+# cli scheduler -c arp_vip_tool.yaml -s y -g VIP=192.168.X.X -g NETCARD_NAME=eth0 -g IP1=192.168.X.X -g IP2=192.168.X.X
+-
+  job:
+    name: "job 1: check VIP"
+    host: ${IP1}
+    tasks:
+      -
+        name: "1.1 Check VIP is not set"
+        type: command
+        cmd: ${SETUP_TOOLS_DIR}/check/check-ping.sh ${VIP} 20 30 && exit 1 || exit 0
+        allow_failed: false
+    param:
+      allow_failed: false
+-
+  job:
+    name: "job 2: set VIP"
+    host: ${IP1}
+    tasks:
+      -
+        name: "2.1 set VIP"
+        type: command
+        cmd:  ifconfig ${NETCARD_NAME}:0 ${VIP} netmask $(ifconfig ${NETCARD_NAME} | grep netmask | awk '{print $4}')
+        allow_failed: false
+      -
+        name: "2.2 arp address declaration"
+        type: command
+        cmd:  arping -c 2 -U -I ${NETCARD_NAME} ${VIP}
+        allow_failed: false
+    param:
+      allow_failed: true
+-
+  job:
+    name: "job 3: check VIP"
+    host: ${IP2}
+    tasks:
+      -
+        name: "3.1 Check VIP is set"
+        type: command
+        cmd: ${SETUP_TOOLS_DIR}/check/check-ping.sh ${VIP} 20 30
+        allow_failed: false
+      -
+        name: "3.2 Check mac is right"
+        type: command
+        cmd: ${SETUP_TOOLS_DIR}/tools/network/arp_vip/check-mac.sh ${IP1} ${VIP}
+        allow_failed: false
+    param:
+      allow_failed: true
+-
+  job:
+    name: "job 4: unset VIP"
+    host: ${IP1}
+    tasks:
+      -
+        name: "4.1 unset VIP"
+        type: command
+        cmd: ifconfig ${NETCARD_NAME}:0 ${VIP} down
+        allow_failed: false
+    param:
+      allow_failed: false

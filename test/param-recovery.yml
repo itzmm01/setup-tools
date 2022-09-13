@@ -1,0 +1,33 @@
+# 公共参数
+MIN_CPU_CORE: 8
+CHECK_CMD: ping ifconfig
+# 主机192.168.0.107的DISK_PARAM配置
+DISK_PARAM@192.168.0.105:
+  - DEV_NAME: /dev/sdb
+    CAPACITY: 20G
+    PATH: /data1
+    FS_TYPE: xfs
+    MOUNT_OPTION: ''
+    ISUNMOUNT: false
+    ISMOUNT: true
+    FS_OPT: '-n ftype=1'
+# 主机192.168.0.114的DISK_PARAM配置
+DISK_PARAM@192.168.0.106:
+  - DEV_NAME: /dev/sdb
+    CAPACITY: 20G
+    PATH: /data1
+    FS_TYPE: ext4
+    MOUNT_OPTION: ''
+    ISUNMOUNT: false
+    ISMOUNT: true
+    FS_OPT: ''
+# 公共的DISK_PARAM配置
+DISK_PARAM:
+  - DEV_NAME: /dev/sdb
+    CAPACITY: 200G
+    PATH: /data_c
+    FS_TYPE: ext4
+    MOUNT_OPTION: ''
+    ISUNMOUNT: false
+    ISMOUNT: true
+    FS_OPT: ''

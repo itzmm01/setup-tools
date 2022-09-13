@@ -1,0 +1,7 @@
+- job:
+    name: "run iperf3 server for network check"
+    host: ALL_NODES
+    tasks:
+      - name: 'run iperf3 server'
+        type: command
+        cmd:  ${SETUP_TOOLS_DIR}/init/init-start-iperf-server.sh ${CHECK_PERF_PARAM_PORT}

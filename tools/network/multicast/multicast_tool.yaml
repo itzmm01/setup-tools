@@ -1,0 +1,18 @@
+-
+  job:
+    name: "send multicast message"
+    host: ${IP1}
+    tasks:
+      -
+        name: "send multicast message"
+        type: command
+        cmd: nohup bash -c "python ${SETUP_TOOLS_DIR}/tools/network/multicast/multicast_tool.py -send \"test for multicast\" &" > /dev/null 2>&1
+-
+  job:
+    name: "receive multicast message"
+    host: ${IP2}
+    tasks:
+      -
+        name: "receive multicast message"
+        type: command
+        cmd: python ${SETUP_TOOLS_DIR}/tools/network/multicast/multicast_tool.py -rec

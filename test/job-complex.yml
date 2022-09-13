@@ -1,0 +1,16 @@
+- include:
+    - file: ${SETUP_TOOLS_DIR}/test/job-include-before.yml
+- job:
+    name: "check loss by iperf3"
+    host: ALL_NODES
+    with_items: CHECK_LOSS_PKG_BYTES
+    node_parallel: true
+    tasks:
+      - name: 'run in UDP mode, check loss'
+        type: command
+        with_items: CHECK_IP
+        item_condition: "'${IP}' != '${CHECK_IP.IP}'"
+        cmd: chmod +x ${SETUP_TOOLS_DIR}/common/jq/jq-linux64 && export PATH=$PATH:${SETUP_TOOLS_DIR}/common/jq && ${SETUP_TOOLS_DIR}/check/check-network-by-iperf.sh ${CHECK_IP.IP} ${CHECK_PERF_PARAM_PORT} ${CHECK_UDP_PROTOCOL} ${CHECK_PERF_PARAM_INTERVAL_TIME} ${CHECK_UDP_BANDWIDTH} ${CHECK_LOSS_PKG_BYTES.NUM} ${CHECK_UDP_LOSS} ${LOSS_THRESHOLD} ${LOSS_THRESHOLD_OPERATOR} ${LOSS_THRESHOLD_RATIO}
+        allow_failed: true
+- include:
+    - file: ${SETUP_TOOLS_DIR}/test/job-include-after.yml

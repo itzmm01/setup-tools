@@ -1,0 +1,11 @@
+- job:
+    name: "init iperf3"
+    host: ALL_NODES
+    tasks:
+      - name: 'send rpm to host'
+        type: file
+        src: ${SETUP_TOOLS_DIR}/tools/network/iperf/dependencies/${IPERF_RPM_FILE_NAME} # 本地源文件
+        dest: ${IPERF_RPM_TARGET_PATH}   # 目标服务器目录
+      - name: 'localinstall iperf rpm'
+        type: command
+        cmd: "yum localinstall -y ${IPERF_RPM_TARGET_PATH}/${IPERF_RPM_FILE_NAME}"

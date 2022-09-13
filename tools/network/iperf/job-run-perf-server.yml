@@ -1,0 +1,9 @@
+- include:
+    - file: ${SETUP_TOOLS_DIR}/tools/network/iperf/job-init-iperf.yml
+- job:
+    name: "run iperf3 server for network check"
+    host: ALL_NODES
+    tasks:
+      - name: 'run iperf3 server'
+        type: command
+        cmd:  ${SETUP_TOOLS_DIR}/tools/network/iperf/init-start-iperf-server.sh ${CHECK_PERF_PARAM_PORT}

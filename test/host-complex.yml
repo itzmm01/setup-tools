@@ -1,0 +1,30 @@
+meeting-hosts:
+  # 引用 MEETING 这个label
+  - name: MEETING
+  # 引用chat-hosts这个组底下的第二台机器，支持类似python数组语法
+  # 其他配置： chat-hosts[*] 组底下所有机器   chat-hosts[0:2] 组底下指定区间
+  - name: chat-hosts[1]
+  - ip: 172.16.16.7
+    name: KKKK
+    user: sam
+  - ip: 172.16.16.6
+    user: sam
+# the extra-info for hostgroup meeting-hosts
+meeting-hosts[var]:
+  user: root
+  port: 22
+  password: 123456
+chat-hosts:
+  - name: KKKK
+  # 支持IP段配置
+  - ip: 172.16.16.3-5
+    port: '22'
+    user: xxx
+    password: 123456
+    # MEETING label定义，标志这台机器属于MEETING 这个label，一个label可支持多台机器
+    name: MEETING
+  - ip: 172.16.16.8
+    port: '22'
+    user: root
+    password: 123456
+    name: MEETING

@@ -1,0 +1,15 @@
+- job:
+    name: register test
+    host: ALL_NODES
+    tasks:
+      - name: 'get ip'
+        type: command
+        cmd: free --si -m | sed -n '2p' | awk '{print $2}'
+        register: MEM_INFO
+- job:
+    name: register test
+    host: local
+    tasks:
+      - name: 'echo ip'
+        type: command
+        cmd: echo ${SUM(MEM_INFO)}

@@ -1,0 +1,11 @@
+- job:
+    name: "check ping"
+    host: ALL_NODES
+    tasks:
+      - name: 'check ping on host'
+        type: command
+        with_items: CHECK_IP
+        parallel: true
+        cmd: ${SETUP_TOOLS_DIR}/check/check-ping.sh  ${CHECK_IP.IP} ${CHECK_PING_RTT} ${CHECK_PING_LOSS}
+    param:
+      allow_failed: true
